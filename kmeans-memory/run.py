@@ -1,7 +1,7 @@
 import argparse
 from numpy.random import rand as ra
 from functools import reduce
-from time import clock
+from time import time
 
 from pyspark.sql import SparkSession
 from pyspark.mllib.clustering import KMeans
@@ -33,11 +33,16 @@ if __name__ == "__main__":
     logger = sc._jvm.org.apache.log4j
     logger.LogManager.getLogger("org"). setLevel( logger.Level.ERROR )
 
-    start_time = clock()
+    print("data generated, starting timer")
+    
+    start_time = time()
+
     for run in (range(runs)):
+        print("starting run %d" % run)
         model = KMeans.train(rdd, clusters, iterations)
-    end_time = clock()
+
+    end_time = time()
 
     sc.stop()
 
-    print("completed %d run%s in %f seconds" % (runs, (runs > 1 and "s" or ""), end_time - start_time))
+    print("completed %d run%s in %s seconds" % (runs, (runs > 1 and "s" or ""), end_time - start_time))
