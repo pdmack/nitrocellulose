@@ -1,6 +1,6 @@
 import argparse
 
-from time import clock
+from time import time
 
 from pyspark.sql import SparkSession
 from pyspark.mllib.clustering import KMeans
@@ -32,10 +32,10 @@ if __name__ == "__main__":
     logger = sc._jvm.org.apache.log4j
     logger.LogManager.getLogger("org"). setLevel( logger.Level.ERROR )
 
-    start_time = clock()
+    start_time = time()
     for run in (range(runs)):
         KMeans.train(rdd, clusters, iterations)
-    end_time = clock()
+    end_time = time()
 
     sc.stop()
     
