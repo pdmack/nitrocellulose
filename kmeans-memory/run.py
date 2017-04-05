@@ -37,12 +37,17 @@ if __name__ == "__main__":
     
     start_time = time()
 
+    runtimes = []
+    
     for run in (range(runs)):
         print("starting run %d" % run)
+        run_time = time()
         model = KMeans.train(rdd, clusters, iterations)
+        runtimes.append(time() - run_time)
+        print("finished in %r seconds" % runtimes[-1])
 
     end_time = time()
 
     sc.stop()
 
-    print("completed %d run%s in %s seconds" % (runs, (runs > 1 and "s" or ""), end_time - start_time))
+    print("completed %d run%s in %s seconds; times were %r" % (runs, (runs > 1 and "s" or ""), end_time - start_time, runtimes))
