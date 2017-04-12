@@ -17,4 +17,4 @@ Run `java -jar target/scala-2.11/sombench-assembly-0.0.1.jar --help` for usage i
 
 # Interpreting results
 
-The program will give you a timing for the SOM training step itself.  If you've run it with the `--logdir` option, there will also be a JSON file with Spark metric events (including individual task wall, CPU, and GC times) in that directory.  For an example of how to postprocess those results using Spark, see the `metrics` subdirectory in this repository.
+The program will give you a timing for the SOM training step itself.  If you've run it with the `--logdir` option, there will also be a JSON file with Spark metric events (including individual task wall, CPU, and GC times) in that directory.  For an example of how to postprocess those results using Spark, see the [`metrics` subdirectory](../metrics/metrics.ipynb) of this repository.
