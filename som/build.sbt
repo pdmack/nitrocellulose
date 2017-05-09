@@ -14,10 +14,10 @@ resolvers += "Will's bintray" at "https://dl.bintray.com/willb/maven/"
 def commonSettings = Seq(
   libraryDependencies ++= Seq(
     "com.github.scopt" %% "scopt" % "3.5.0",
-    "org.apache.spark" %% "spark-core" % SPARK_VERSION,
-    "org.apache.spark" %% "spark-sql" % SPARK_VERSION,
-    "org.apache.spark" %% "spark-mllib" % SPARK_VERSION,
-    "org.scala-lang" % "scala-reflect" % SCALA_VERSION,
+    "org.apache.spark" %% "spark-core" % SPARK_VERSION % "provided",
+    "org.apache.spark" %% "spark-sql" % SPARK_VERSION % "provided",
+    "org.apache.spark" %% "spark-mllib" % SPARK_VERSION % "provided",
+    "org.scala-lang" % "scala-reflect" % SCALA_VERSION % "provided",
     "com.redhat.et" %% "silex" % "0.1.1"
   )
 )
@@ -35,15 +35,4 @@ scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value
 )
 
 lazy val es2parquet = (project in file(".")).
-  settings(commonSettings: _*).
-  settings(
-    mainClass in assembly := Some("radanalyticsio.sombench.Main"),
-    assemblyMergeStrategy in assembly := { 
-      case m if m.toLowerCase.endsWith("manifest.mf")          => MergeStrategy.discard
-      case m if m.toLowerCase.matches("meta-inf.*\\.sf$")      => MergeStrategy.discard
-      case "log4j.properties"                                  => MergeStrategy.discard
-      case m if m.toLowerCase.startsWith("meta-inf/services/") => MergeStrategy.filterDistinctLines
-      case "reference.conf"                                    => MergeStrategy.concat
-      case _                                                   => MergeStrategy.first
-    }
-  )
+  settings(commonSettings: _*)
